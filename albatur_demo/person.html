@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html lang="en" class="default-style layout-fixed layout-navbar-fixed">
+
+<head>
+    <!-- panelheader.html -->
+    <script src="../assets/jsController/person.js"></script>
+    <style>
+        #kullaniciSutun td {
+            cursor: pointer;
+        }
+
+        #postPersonList input {
+            border: none !important;
+            border-bottom: 1px solid rgb(255, 74, 0, 0.5) !important;
+        }
+
+        .form-control:disabled {
+            color: #27292b !important;
+            font-weight: 500;
+        }
+        #tArea .tox-tinymce{
+            display: none!important;
+        }
+        #tArea #mailContent{
+            display: block!important;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+    <!-- [ Preloader ] Start -->
+    <div class="page-loader">
+        <div class="bg-primary"></div>
+    </div>
+    <!-- [ Preloader ] End -->
+
+    <!-- [ Layout wrapper ] Start -->
+    <div class="layout-wrapper layout-2">
+        <div class="layout-inner">
+            <!-- panelnavbar.html -->
+            <!-- [ Layout container ] Start -->
+            <div class="layout-container">
+                <!-- [ Layout navbar ( Header ) ] Start -->
+                <!-- panelustmenu.html -->
+                <!-- [ Layout navbar ( Header ) ] End -->
+
+                <!-- [ Layout content ] Start -->
+                <div class="layout-content">
+
+                    <!-- [ content ] Start -->
+                    <div class="container-fluid flex-grow-1 container-p-y">
+                        <h4 class="font-weight-bold py-3 mb-0">Kullanıcı</h4>
+                        <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#">Ana sayfa</a></li>
+                                <li class="breadcrumb-item active">Kullanıcı</li>
+                            </ol>
+                        </div>
+                        <div class="row">
+                            <!-- customar project  start -->
+                            <div class="col-xl-12">
+                                <div class="card">
+
+                                    <div class="card-body">
+
+
+
+                                        <div class="row align-items-center m-l-0">
+                                            <div class="col-sm-6">
+                                            </div>
+                                            <div class="col-sm-6 text-right">
+                                                <button type="button" class="btn btn-outline-success ladda-button "
+                                                    data-toggle="modal" data-target="#modalwindow"
+                                                    id="yeniKayitBtnPerson" onclick="inputRemove(),changebuttons()">
+                                                    Yeni Ekle
+                                                </button>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="table-responsive table-bordered table-sm" >
+                                            <table id="tblPerson" class="table  table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Email</th>                                                   
+                                                        <th>Ad Soyad</th>
+                                                        <th>Kullanıcı Adı</th>
+                                                        <th>Gsm</th>
+                                                        <th>İşlemler</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot style="display: table-header-group;">
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Email</th>                                                   
+                                                        <th>Ad Soyad</th>
+                                                        <th>Kullanıcı Adı</th>
+                                                        <th>Gsm</th>
+                                                        <th style="display:none"></th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody id="persontbody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ content ] End -->
+                </div>
+                <!-- panelfooter.html -->
+                <!-- [ Layout content ] Start -->
+            </div>
+            <!-- [ Layout container ] End -->
+        </div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+
+    </div>
+    <!-- [ Layout wrapper] End -->
+
+    <!-- Core scripts -->
+
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="logmodalwindow">
+
+        <div class="modal-dialog modal-lg" style="max-width:70%;">
+            <div class="modal-content">
+                <div class="modal-header" style="padding-bottom: 25px;">
+                    <h4>
+                        Log Bilgileri
+                    </h4>
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>
+                <!-- //burayaa -->
+                <div class="layout-content">
+                    <div class="form-row row">
+                        <div class="row-title">
+
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive table-bordered table-sm">
+                                <table id="gorevlog-table" class="table mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>İşlem</th>
+                                            <th>Tip</th>
+                                            <th>Kullanıcı Adı</th>
+                                            <th>Zaman</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot style="display: table-header-group;">
+                                        <tr>
+                                            <th>İşlem</th>
+                                            <th>Tip</th>
+                                            <th>Kullanıcı Adı</th>
+                                            <th>Zaman</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody id="gorevlog-list">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- modal-->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="modalwindow">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>                
+                <div class="layout-content">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="javascript:void(0)" name="postform" id="postform" class="form-horizontal">
+                                <div class="form-row row">
+                                    <div class="row-title">
+                                        <h4>
+                                            Kişiler
+                                        </h4>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Ad Soyad</label>
+                                            <input type="text" class="form-control" id="adSoyadPersonDuzenle">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Email</label>
+                                            <input type="text" name="email" class="form-control" id="emailDuzenle">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Gsm</label>
+                                            <input type="text" class="form-control" id="gsmPersonDuzenle">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Departman</label>
+                                            <input type="text" class="form-control" id="personDepartmanDuzenle">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Kullanıcı Adı</label>
+                                            <input type="text" name="user_name" class="form-control"
+                                                id="user_nameDuzenle">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Ev Telefonu</label>
+                                            <input type="text" class="form-control" id="evTelPersonDuzenle">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Kan Grubu</label>
+                                            <input type="text" class="form-control" id="kanGrubuPersonDuzenle">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Kullanıcı Kod</label>
+                                            <input type="text" class="form-control" id="personKodDuzenle">
+                                        </div>
+                                    </div>                                    
+                                    <div class="col-sm-6">
+                                        <div class="form-group" style="margin-top: 9px;margin-left: 3px;border: 1px solid grey;height: 60px;">
+                                            <div class="form-check ">
+                                                <label class="form-label">Görevi</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline" style="margin-left:23px;">
+                                                <input class="form-check-input" type="radio" name="kisiBirimRadioBtn"
+                                                    id="birimPerson1" value="1">
+                                                <label class="form-check-label" for="inlineRadio1">Beyaz Yaka</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="kisiBirimRadioBtn"
+                                                    id="birimPerson2" value="2">
+                                                <label class="form-check-label" for="inlineRadio2">İşçi</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="form-label">Doğum Tarihi</label>
+                                        <input type="date" name="personDogumTarihi" class="form-control" id="personDogumTarihi" min="1937-01-01" max="2330-12-31">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" style="margin-top: 9px;margin-left: 3px;border: 1px solid grey;height: 60px;">
+                                            <div class="form-check ">
+                                                <label class="form-label">Panel (Yönetici/Kullanıcı)</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline" style="margin-left:23px;">
+                                                <input class="form-check-input" type="radio" name="personYonetici"
+                                                    id="yoneticiPerson" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yönetici</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="personYonetici"
+                                                    id="kullaniciPerson" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">Kullanıcı</label>
+                                            </div>
+
+                                        </div>
+                                    </div>                                 
+                                  
+                                    <div class="col-sm-12" >
+                                        <div class="form-group">
+                                            <label class="form-label">Adres</label>
+                                            <input type="text" class="form-control" id="adresPersonDuzenle">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group"  id="fileDiv">
+                                            <label class="form-label">Profil Fotoğrafı Yükle</label>
+                                            <input id="myFile" type="file" name="myFile" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" id="personSifreDiv">
+                                        <div class="form-group">
+                                            <label class="form-label">Şifre</label>
+                                            <input type="text" class="form-control" id="personSifre">
+                                        </div>
+                                    </div>
+                        </div>
+                        <button type="button" id="btnAddPerson" class="btn btn-success">Yeni Ekle</button>
+
+                        <button class='btn btn-success' style="display: none;" id='duzeltbutton'
+                            onclick='update()'>Güncelle</button>
+                        <input type="hidden" id="person_id">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- detayPerson-Modal -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="detayPersonModal">
+
+        <div class="modal-dialog modal-lg" style="margin-top: 6%;">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>
+
+                <div class="layout-content">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="javascript:void(0)" name="postform" id="postPersonList"
+                                class="form-horizontal">
+                                <div class="form-row row">
+                                    <div class="row-title">
+                                        <img src="../assets/img/Albatur_Logo.png" style="height:110px;width:210px;margin-left: 250px;margin-top: -45px;"
+                                            alt="">
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top:-26px;">
+                                        <div class="incoming_msg_img">
+                                            <img id="imgPerson" src=""
+                                                style="height:150px;margin-left:10vh;margin-top: 58px;" alt="sunil">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <div class="col-sm-12 ">
+                                            <div class="form-group">
+                                                <label class="form-label">Ad Soyad</label>
+                                                <input type="text" class="form-control" id="adSoyadPerson" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Görevi</label>
+                                                <input type="text" class="form-control" id="birimPerson" disabled>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Departman</label>
+                                                <input type="text" class="form-control" id="departmanPerson" disabled>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Email</label>
+                                            <input type="text" class="form-control" id="emailPerson" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Gsm</label>
+                                            <input type="text" class="form-control" id="gsmPerson" disabled>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Kullanıcı Adı</label>
+                                            <input type="text" class="form-control" id="user_namePerson" disabled>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Ev Telefonu</label>
+                                            <input type="text" class="form-control" id="evTelPerson" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Kan Grubu</label>
+                                            <input type="text" class="form-control" id="kanGrubuPerson" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Doğum Tarihi</label>
+                                            <input type="text" class="form-control" id="personDogumTarih" disabled>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Yakınlık Derecesi</label>
+                                            <input type="text" class="form-control" id="yakinDerecePerson" disabled>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Adres</label>
+                                            <input type="text" class="form-control" id="adresPerson" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-10">
+                                    <button class="btn btn-primary" type="button" id="btnMesaj" 
+                                        style="margin-left:40px !important;" data-toggle="modal" data-target="#smsModalWindow"><i class="far fa-comment-dots"></i> Sms
+                                        Yolla</button>
+                                    <button class='btn btn-success' id='btnMail' 
+                                        style="position: absolute; right: 45px !important;" data-toggle="modal" data-target="#mailModalWindow"><i
+                                            class="feather icon-navigation "></i> Mail Yolla</button>
+
+                                </div>
+
+
+
+
+                                <input type="hidden" id="person_id">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-sm" style="display: none;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="smsModalWindow" >
+
+        <div class="modal-dialog modal-sm" style="max-width: 27%;margin-top: 14%;">
+            <div class="modal-content">
+                <div class="modal-header" style="padding-bottom: 25px;">
+                    
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>
+                <h4 class="text-center">
+                    Sms Gönder
+                </h4>
+                <div class="layout-content">
+                    <div class="container text-center">
+                        <div class="form-row row">
+                            <div class="row-title">
+    
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label style="float: left;" for="exampleInputEmail1">İçerik</label>
+                                    <input type="text" class="form-control" id="smsContent"  placeholder="İçerik giriniz.">
+                                  </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary mb-3" onclick="sendSms()" type="button" ><i class="far fa-comment-dots"></i>Gönder</button>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-sm" style="display: none;" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="mailModalWindow" >
+
+        <div class="modal-dialog modal-sm" style="max-width: 27%;margin-top: 14%;">
+            <div class="modal-content">
+                <div class="modal-header" style="padding-bottom: 25px;">
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>
+                <h4 class="text-center">
+                    Mail Gönder
+                </h4>
+                <div class="layout-content">
+                    <div class="container text-center">
+                        <div class="form-row row">
+                            <div class="row-title">
+    
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label style="float: left;" for="exampleInputEmail2">Başlık</label>
+                                    <input type="text" class="form-control" id="mailTitle"  placeholder="Başlık giriniz.">
+                                  </div>
+                                  <div class="form-group" id="tArea">
+                                    <label style="float: left;" for="exampleInputEmail">İçerik</label>
+                                    <textarea id="mailContent" placeholder="İçerik giriniz." style="width: 100%;" rows="4" aria-hidden="true"></textarea>
+                                    <!-- <input type="text" class="form-control" id="mailContent"  placeholder="İçerik giriniz."> -->
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div>
+                            <button class="btn btn-success mb-3" onclick="sendMail()" type="button"><i class="feather icon-navigation mr-1 "></i>Gönder</button>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

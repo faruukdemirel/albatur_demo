@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+<html lang="en" class="default-style layout-fixed layout-navbar-fixed">
+
+<head>
+    <!-- Timetable CSS Files -->
+    <link rel="stylesheet" href="../assets/libs/fullcalendar/fullcalendar.css">
+
+    <!-- Timetable JS Files -->
+
+    <!-- panelheader.html -->
+    <style>
+        /* Style the tab */
+        .tab {
+            background-color: #f1f1f1;
+        }
+        .table-responsive{
+            margin-top: -14px;
+            
+        }       
+        .chosen-single{
+            height: 30px !important;
+            width: 200px;
+        }
+        .chosen-single span{
+            margin-top: -8px;
+        }
+        .chosen-container{
+            margin-right: -100px;
+            margin-top: -5px;
+        }
+
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+        }
+        .tox-silver-sink {
+            display: none;
+        }
+        #t_index1,#t_index{
+            width: 30px;
+        }
+        #t_content , #t_titlet, #t_assign_person, #t_taking_person{
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #taskSutun td{
+            cursor: pointer;
+
+        }
+        
+    </style>
+</head>
+
+<body>
+    <!-- [ Preloader ] Start -->
+    <div class="page-loader">
+        <div class="bg-primary"></div>
+    </div>
+    <!-- [ Preloader ] End -->
+
+    <!-- [ Layout wrapper ] Start -->
+    <div class="layout-wrapper layout-2">
+        <div class="layout-inner">
+            <!-- [ Layout sidenav ] Start -->
+            <!-- panelnavbar.html -->
+            <!-- [ Layout sidenav ] End -->
+            <!-- [ Layout container ] Start -->
+            <div class="layout-container">
+
+                <!-- panelustmenu.html -->
+                <!-- [ Layout navbar ( Header ) ] End -->
+                <!-- [ Layout content ] Start -->
+                <div class="layout-content">
+                    <!-- [ content ] Start -->
+                    <div class="container-fluid flex-grow-1 container-p-y">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4 class="font-weight-bold py-3 mb-0">Dashboard</h4>
+                            <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item">Ana Sayfa</li>
+                                    <li class="breadcrumb-item active">Dashboard</li>
+                                </ol>
+                                <div class="tab" style="bottom: 0px;position: absolute;">
+                                    <button id="gorevTabBtn" class="tablinks"
+                                        onclick="openTabBar(event, 'gorev')">Görevlerim</button>
+                                    <button id="takvimTabBtn" class="tablinks" onclick="openTabBar(event, 'takvim')">Takvim</button>
+                                    <button id="dashgTabBtn" class="tablinks" onclick="openTabBar(event, 'Dashboard')">Dashboard </button>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-4" id="personBirths">
+                                <div id="multi-item-example2" class="carousel slide carousel-multi-item" id="myCarousel2" data-ride="carousel">
+
+                                
+                                    <div class="controls-top" style="text-align: center;" id="prevAndNext2">
+                                    </div>
+                                    
+                                    <div id="navbarOl2" style="display: none;">
+                                    </div>
+                                    
+                                    <div class="carousel-inner" role="listbox" id="carouselSec2">
+                                    </div>
+                                
+                                </div>
+
+
+                            </div>
+                        <div class="col-md-4" id="wishes">
+                                
+
+                            <div id="multi-item-example" class="carousel slide carousel-multi-item" id="myCarousel1" data-ride="carousel">
+
+                                
+                                <div class="controls-top" style="text-align: center;" id="prevAndNext">
+                                <!-- <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-left" style="margin-right: 14px;"></i></a>
+                                <a class="btn-floating" href="#multi-item-example" data-slide="next" style="margin-left: 14px;"><i
+                                    class="fas fa-chevron-right"></i></a> -->
+                                </div>
+                                
+                                <div id="navbarOl" style="display: none;">
+                                    <!-- <ol class="carousel-indicators">
+                                        <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
+                                        <li data-target="#multi-item-example" data-slide-to="1"></li>
+                                      </ol> -->
+                                </div>
+                                
+                                
+                                <div class="carousel-inner" role="listbox" id="carouselSec">
+                            
+                                <!--First slide-->
+                                <!-- <div class="carousel-item active" style="height: 210px;">
+                                    <div class="card" style="width: 18rem;">
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--/.First slide-->
+
+                                <!-- <div class="carousel-item" style="height: 210px;overflow-y: auto;">
+                                    <div class="card" style="width: 18rem;">
+                                        <div style="text-align: center;" >
+                                            <img class="card-img-top" style="height:165px;width:165px" src="../upload/stokFiles/150.png" alt="Card image cap">
+                                        </div>
+                                        <div class="card-body">
+                                          <h5 class="card-title">Card title</h5>
+                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                      </div>
+                                </div> -->
+                                
+                            
+                                </div>
+                                <!--/.Slides-->
+                            
+                            </div>
+                            
+                        </div>
+                        <hr class="border-light container-m--x mt-0 mb-4">
+                        
+                        <div id="gorev" class="tabcontent">
+                            <div class="card mb-4">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="cord-body">
+                                            <form name="postform1" id="postform1" class="form-horizontal"
+                                                action="javascript:void(0)">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <label class="form-label">Konu</label>
+                                                    <input autofocus type="text" name="gorevtopic" class="form-control"
+                                                        id="gorevtopic">
+                                                        </div>
+                                                        <div class="col-md-2" style="margin-top:4px;">
+                                                            <br>
+                                                            
+                                                    <button type="button" id="btnDetailsTask" onclick="detailsTask()" title="Detayları Göster"
+                                                    class="btn btn-warning mr-3"><i id="toggleIcon" class="feather icon-chevron-down"></i></button>
+
+                                                    <button type="button" id="btnAddTask" onclick="addTask()" title="Hızlı Görev Ekle"
+                                                    class="btn btn-success "><i class="feather icon-navigation "></i></button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                        
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <hr class="border-light m-0">
+                                                
+                                                <div class="form-row " id="detailsSec" style="display: none;">
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Öncelik</label>
+                                                                <select id="priority" class="form-control">
+                                                                    <option value="0" id="priorityChoose" selected>Seçiniz</option>
+                                                                    <option value="1">Yüksek</option>
+                                                                    <option value="2"> Orta</option>
+                                                                    <option value="3">Düşük</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Kişi</label>
+                                                                <select id="person" class="form-control">
+                                                                </select>
+                                                            </div>
+    
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                                <input type="hidden" id="id">
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- customar project  start -->
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row align-items-center m-l-0">
+
+                                                <div class="row w-100">
+                                                    <!-- TO DO: Bu kısımda üstteki durum selectox içeri girmiş bir şekildeydi böyle bir yer görülürse col-sm-6 vb  classları .row ile sarmak gerelki ve rowa w-100 classı eklenmeli -->
+                                                    <div class="col-sm-12">
+                                                        <div class="select-block form-group row">
+                                                            <!-- TO DO: Düzeltmeden önceki halini form-group ve selecte verilen form-control classlarını silip görebilirsin. Bozuk selectbox input falan görürsen label ve selectin wrapperına form-group  selectin kendisine form-control classı vererek düzeltebilirsin. -->
+                                                            
+                                                        
+                                                                <div class="col-sm-5" id="selectAtamayaGore">
+                                                                    <div class="form-group" >
+                                                                        <div class="form-check ">
+                                                                            <label class="form-label">Atamaya Göre</label>
+                                                                        </div>
+                            
+                                                                        <div class="form-check form-check-inline" >
+                                                                            <input class="form-check-input" onchange="durumDegistir();" type="radio" name="atamayaGore"
+                                                                                id="defaultChecked" value="0" checked>
+                                                                            <label class="form-check-label" for="inlineRadio1">Hepsi</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" onchange="durumDegistir();" type="radio" name="atamayaGore"
+                                                                                id="benimAtadıgım" value="1">
+                                                                            <label class="form-check-label" for="inlineRadio2">Benim Atadıklarım</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" onchange="durumDegistir();" type="radio" name="atamayaGore"
+                                                                                id="banaAtanmıs" value="2">
+                                                                            <label class="form-check-label"  for="inlineRadio3">Bana Atanmışlar</label>
+                                                                        </div>
+                            
+                                                                    </div>                                                                  
+                                                                </div>
+                                                                <div class="col-sm-5" id="baskasinaAtamayaGore" style="display: none;">
+                                                                    <div class="form-group" >
+                                                                        <div class="form-check ">
+                                                                            <label class="form-label">Atamaya Göre</label>
+                                                                        </div>
+                            
+                                                                        <div class="form-check form-check-inline" >
+                                                                            <input class="form-check-input" onchange="durumDegistirBaskasi();" type="radio" name="anotherPerson"
+                                                                                id="atananHepsiAnother" value="0" checked>
+                                                                            <label class="form-check-label" for="inlineRadio1">Hepsi</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" onchange="durumDegistirBaskasi();" type="radio" name="anotherPerson"
+                                                                                id="benimAtadıgım" value="1">
+                                                                            <label class="form-check-label" for="inlineRadio2">Benim Atadıklarım</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" onchange="durumDegistirBaskasi();" type="radio" name="anotherPerson"
+                                                                                id="banaAtanmıs" value="2">
+                                                                            <label class="form-check-label"  for="inlineRadio3">Bana Atanmışlar</label>
+                                                                        </div>
+                            
+                                                                    </div>                                                                   
+                                                                </div>
+                                                                <div class="col-sm-4" id="selectDurumaGore">
+                                                                    <div class="form-group" >
+                                                                        <div class="form-check ">
+                                                                            <label class="form-label">Duruma Göre</label>
+                                                                        </div>
+                            
+                                                                        <div class="form-check form-check-inline" >
+                                                                            <input class="form-check-input" onchange="durumDegistir();" type="radio" name="durumaGore"
+                                                                                id="hepsiDurum" value="0" >
+                                                                            <label class="form-check-label" for="radioDurum1">Hepsi</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" onchange="durumDegistir();" type="radio" name="durumaGore"
+                                                                                id="acikDurumDefault" value="1" checked>
+                                                                            <label class="form-check-label" for="radioDurum2">Açık</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" onchange="durumDegistir();" type="radio" name="durumaGore"
+                                                                                id="kapaliDurum" value="2">
+                                                                            <label class="form-check-label" for="radioDurum3">Kapalı</label>
+                                                                        </div>                            
+                                                                    </div>                                                                    
+                                                                </div>  
+                                                                <div class="col-sm-4" id="baskasininDurumu" style="display: none;">
+                                                                    <div class="form-group" >
+                                                                        <div class="form-check ">
+                                                                            <label class="form-label">Duruma Göre</label>
+                                                                        </div>
+                            
+                                                                        <div class="form-check form-check-inline" >
+                                                                            <input class="form-check-input" onchange="anotherChange();" type="radio" name="anotherState"
+                                                                                id="hepsiDurumAnother" value="0" >
+                                                                            <label class="form-check-label" for="radioDurum1">Hepsi</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" onchange="anotherChange();" type="radio" name="anotherState"
+                                                                                id="acikDurum" value="1" checked>
+                                                                            <label class="form-check-label" for="radioDurum2">Açık</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" onchange="anotherChange();" type="radio" name="anotherState"
+                                                                                id="kapaliDurum" value="2">
+                                                                            <label class="form-check-label" for="radioDurum3">Kapalı</label>
+                                                                        </div>                            
+                                                                    </div>                                                                    
+                                                                </div>                                                                                           <!-- <div class="col-sm-3" id="selectDurum">
+                                                                      
+                                                                -->
+                                                                    <div class="col-sm-3" id="isAdminSeen">
+                                                                        <button class="btn btn-sm btn-primary" id="backToDefault" style="display: none; position:absolute;margin-left:170px;">X</button>
+                                                                        <div class="select-block">
+                                                                            <label style="display: block;">Kişi Listesi</label>
+                                                                           
+                                                                            <select  id="personList" onchange="kisiAra();" class="chosen-single  col-sm-4  form-control"> 
+                                                                            
+                                                                            </select>
+                                                                           
+                                                                        </div>
+                                                                    </div>
+                                                                                                                                                                      
+                                                        </div>
+                                                              
+                                                    </div>                                                  
+                                                </div>
+
+                                            </div>
+                                            <div class="table-responsive table-bordered table-sm">
+                                                <table id="task-table" class="table  table-hover">
+                                                    <thead>
+                                                        <tr>
+    
+                                                            <th>#</th>
+                                                            <th style="width:30px"></th>
+                                                            <th style="width:30px">Aciliyet</th>
+                                                            <th></th>                                                            
+                                                            <th>Başlık</th>
+                                                            <th>İçerik</th>                                                                                                                     
+                                                            <th>Başlangıç T.</th>
+                                                            <th>Bitiş T.</th>
+                                                            <th>Görevi Veren</th>
+                                                            <th>Görevi Alan</th>
+                                                            <th>İşlemler</th>
+    
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot style="display: table-header-group;">
+                                                        <tr>
+                                                            <th style="visibility: hidden;">#</th>
+                                                            <th style="visibility: hidden;"></th>
+                                                            <th style="width: 10px; visibility: hidden;">Aciliyet</th> 
+                                                            <th style="visibility: hidden;"></th>                                             
+                                                            <th>Başlık</th>
+                                                            <th>İçerik</th>                                                                                                                    
+                                                            <th>Başlangıç T.</th>
+                                                            <th>Bitiş T.</th>
+                                                            <th>Görevi Veren</th>
+                                                            <th>Görevi Alan</th>
+    
+    
+    
+                                                            <th style="display:none"></th>
+                                                        </tr>
+                                                    </tfoot>
+    
+                                                    <tbody id="task-list">
+    
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- customar project  end -->
+                            </div>
+                        </div>
+
+                        <div id="takvim" class="tabcontent">
+                            <h3 style="margin-top: 10px;color:#f1f1f1">Takvim</h3>
+                            <div class="card mb-4">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="cord-body">
+                                            <hr class="border-light m-0">
+                                            <div class="form-row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Takvim Filtre</label>
+                                                        <select id="filterStatus" onchange="filterChange()" class="form-control">
+                                                            <option value="0" selected>Hepsi</option>
+                                                            <option value="1">Bana Atanmış Görevler</option>
+                                                            <option value="2">Benim Atadığım Görevler</option>
+                                                            <option value="3">Personel Doğum Günleri</option>
+                                                            <option value="4"> Müşteri Doğum Günleri</option>
+                                                            <option value="5">Takvim Notları</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div id='fullcalendar-default-view'></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="Dashboard" class="tabcontent">
+                            <h3 style="margin-top: 10px;color:#f1f1f1">Dashboard</h3>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div id='fullcalendar-default-view'></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- [ Layout content ] Start -->
+                </div>
+                <!-- [ content ] End -->
+                        <!-- panelfooter.html -->
+                <!-- [ Layout container ] End -->
+            </div>
+            <!-- Overlay -->
+            <div class="layout-overlay layout-sidenav-toggle"></div>
+        </div>
+
+        <script src="../assets/libs/moment/moment.js"></script>
+
+        <script src="../assets/jsController/index.js"></script>
+         
+        <script src="../assets/jsController/takvim.js"></script>
+        <script src="../assets/libs/fullcalendar/fullcalendar.js"></script>
+        <!-- Demo -->
+        <form class="modal modal-top fade" id="fullcalendar-default-view-modal">
+            <div class="modal-dialog" style="top:10%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Yeni Ekle</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input hidden id="personId">
+                            <label class="form-label">Başlık</label>
+                            <input type="text" class="form-control" id="topic">
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" id="personName"></label>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tip</label>
+                            <select class="custom-select" id="tip">
+                                <option value="fc-event-success">Yeşil</option>
+                                <option value="fc-event-info">Mavi</option>
+                                <option value="fc-event-warning">Sarı</option>
+                                <option value="fc-event-danger">Kırmızı</option>
+                                <option value="fc-event-dark">Siyah</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Açıklama</label>
+                            <input type="text" class="form-control" id="detail">
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Bitiş Tarihi</label>
+                            <input type="date" name="bitisTarihi" class="form-control" id="bitisTarihi" min="1937-01-01"
+                                max="2330-12-31">
+                        </div>
+                        <div class="form-group" hidden>
+                            <label class="form-label">Baslangıç Tarihi</label>
+                            <input type="date" name="baslangicTarihi" class="form-control" id="baslangicTarihi"
+                                min="1937-01-01" max="2330-12-31">
+                        </div>
+                        <div class="form-group" style="margin-top: 30px;">
+                            <label class="switcher switcher-success" id="ozel">
+                                <input id="chkOzel" type="checkbox" class="switcher-input" checked>
+                                <span class="switcher-indicator">
+                                    <span class="switcher-yes"></span>
+                                    <span class="ion ion-md-checkmark"></span>
+                                </span>
+                                <span class="switcher-no">
+                                    <span class="ion ion-md-close"></span>
+                                </span>
+                                </span>
+                                <span class="switcher-label">Özel Mi?</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default md-btn-flat" onclick="takvimSil()"
+                            data-dismiss="modal">Sil</button>
+                        <button id="addBtn" type="submit" class="btn btn-primary md-btn-flat">Kaydet</button>
+                        <button id="updateBtn" type="button" onclick="takvimGuncelle()"
+                            class="btn btn-primary md-btn-flat">Güncelle</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true" id="logmodalwindow">
+
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding-bottom: 25px;">
+
+                        <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                    </div>
+                    <!-- //burayaa -->
+
+                    <div class="layout-content">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive  table-bordered table-sm">
+                                    <table id="gorevlog-table" class="table mb-0">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>İşlem</th>
+                                                <th>Kullanıcı Adı</th>
+                                                <th>Başlık</th>
+                                                <th>Zaman</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot style="display: table-header-group;">
+                                            <tr>
+                                                <th>İşlem</th>
+                                                <th>Kullanıcı Adı</th>
+                                                <th>Başlık</th>
+                                                <th>Zaman</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody id="gorevlog-list">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true" id="detailmodalwindow">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding-bottom: 25px;">
+
+                        <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                    </div>
+                    <!-- //burayaa -->
+                    <div class="card">
+                        <!-- Ticket -->
+                        <div class="card-body">
+                            <!-- Header -->
+                            <div class="row no-gutters">
+                                <div class="col-sm-6 col-md-8 col-lg-7 col-xl-8">
+                                    <!-- Author -->
+                                    <div class="media align-items-center mb-4">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <div class="media-body ml-3">
+                                            <h5 class="mb-1"><a href="javascript:void(0)" class="text-dark"></a></h5>
+                                            <div id="detailtaskOwner" class="text-muted small">123</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-lg-5 col-xl-4">
+                                    <!-- Dates -->
+                                    <div class="row no-gutters row-bordered row-border-light ui-bordered mb-4">
+                                        <div class="col py-1 px-3">
+                                            <div class="text-muted small">Oluşturulma T.</div>
+                                            <div class="font-weight-semibold" id="detailcreatedDate"></div>
+                                        </div>
+                                        <div class="col py-1 px-3">
+                                            <div class="text-muted small">Görev T.</div>
+                                            <div class="font-weight-semibold" id="detailtaskDate"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- / Header -->
+                            <div class="form-group">
+                                <label class="form-label">Konu</label>
+                                <input type="text" class="form-control" id="detailtopic" value="" readonly>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Açıklama</label>
+                                <textarea class="form-control" rows="3" id="detaildescription" readonly> </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Atanmış Kişi</label>
+                                <input type="text" class="form-control" id="detailAssaigned" value="" readonly>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Öncelik</label>
+                                        <select id="detailpriority" class="form-control" disabled>
+                                            <option value="1" selected>Yüksek</option>
+                                            <option value="2"> Orta</option>
+                                            <option value="3">Düşük</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Durum Değiştir</label>
+                                        <select id="detailstatus" class="form-control" onchange="changeTaskStatus()">
+                                            <option value="1" selected>Açık</option>
+                                            <option value="2">Kapalı</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive table-bordered table-sm">
+                                <table id="file-table" class="table mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Url</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot style="display: table-header-group;">
+                                        <tr>
+                                            <th>Url</th>
+                                            <th style="display:none"></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody id="file-list">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container" id="comments">
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        
+</body>
+
+</html>

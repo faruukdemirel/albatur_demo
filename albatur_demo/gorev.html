@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html lang="en" class="default-style layout-fixed layout-navbar-fixed">
+
+<head>
+
+    <!-- panelheader.html -->
+
+    <script src="../assets/jsController/task3.js"></script>
+
+    <style>
+        .singleElem {
+            padding: 5px;
+            margin: 5px;
+            border-top: 1px;
+            border-color: rgba(24, 28, 33, 0.13)
+        }
+    </style>
+</head>
+
+<body>
+    <!-- [ Preloader ] Start -->
+    <div class="page-loader">
+        <div class="bg-primary"></div>
+    </div>
+    <!-- [ Preloader ] End -->
+
+    <!-- [ Layout wrapper ] Start -->
+    <div class="layout-wrapper layout-2">
+        <div class="layout-inner">
+            <!-- [ Layout sidenav ] Start -->
+            <!-- panelnavbar.html -->
+            <!-- [ Layout sidenav ] End -->
+            <!-- [ Layout container ] Start -->
+            <div class="layout-container">
+
+                <!-- panelustmenu.html -->
+                <!-- [ Layout navbar ( Header ) ] End -->
+                <!-- [ Layout content ] Start -->
+                <div class="layout-content">
+                    <!-- [ content ] Start -->
+                    <div class="container-fluid flex-grow-1 container-p-y">
+                        <h4 class="font-weight-bold py-3 mb-0">Görevler</h4>
+                        <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#!">Ana Sayfa</a></li>
+                                <li class="breadcrumb-item active"><a href="#!">Görevler</a></li>
+                            </ol>
+                        </div>
+                        <div class="row">
+                            <!-- customar project  start -->
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row align-items-center m-l-0">
+                                            <div class="col-sm-6">
+
+                                            </div>
+                                            <div class="col-sm-6 text-right">
+                                                <button class='btn btn-outline-success ladda-button' data-toggle='modal'
+                                                    data-style="expand-left" title="Yeni Kayıt"
+                                                    data-target='#modalwindow' id='yeniKayitBtn'
+                                                    onclick='newSave()'>Yeni Ekle</i></button> </div>
+                                        </div>
+
+                                        <div class="row align-items-center m-l-0 card-header">
+                                            <div class="col-3">
+                                                <h6>Açık İşler </h6>
+                                                <div id="activeTask"> </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <h6>Kapalı İşler </h6>
+                                                <div id="closeTask"> </div>
+
+                                            </div>
+                                            <div class="col-3">
+                                                <h6>Tüm İşler </h6>
+                                                <button style="width: 53px;" class="btn btn-outline-danger"
+                                                    onclick="getAllTask()"> <i class="fas fa-search"></i></button>
+
+                                            </div>
+                                            <div class="col-3">
+                                                <h6>Atamaya Göre</h6>
+                                                <select onchange="gorevStatusChanged()" id="selectStatus"
+                                                    class="js-category-multiple col-sm-4 form-control">
+                                                    <option value="0">Hepsi</option>
+                                                    <option value="1">Benim Atadıklarım</option>
+                                                    <option value="2">Bana Atanmışlar</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="taskList">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+                                <!---</div>--->
+                                <!--</div>-->
+                            </div>
+                            <!-- customar project  end -->
+                        </div>
+                    </div>
+                    <!-- [ content ] End -->
+                    <!-- panelfooter.html -->
+                </div>
+                <!-- [ Layout content ] Start -->
+            </div>
+            <!-- [ Layout container ] End -->
+        </div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+    </div>
+    <!-- [ Layout wrapper] End -->
+
+<!-- tamammmmm -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="modalwindow">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="
+                padding-bottom: 25px;">
+
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>
+                <!-- //burayaa -->
+                <form name="postform1" id="postform1" class="form-horizontal" action="javascript:void(0)">
+                <div class="card">
+                    <!-- Ticket -->
+                    <div class="card-body">
+                        <!-- Header -->
+                        <div class="form-row row">
+                            <div class="row-title">
+                                <h4>
+                                    Görev Bilgileri
+                                </h4>
+                            </div>
+                        </div>
+                        <!-- / Header -->
+                        <div class="form-group">
+                            <label class="form-label">Konu</label>
+                            <input type="text" name="topic" class="form-control" id="topic">
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Açıklama</label>
+                            <textarea class="form-control" rows="3" id="description"></textarea>
+                        </div>
+                    </div>
+                    <!-- / Ticket -->
+                    <hr class="border-light m-0">
+                    <!-- Ticket settings -->
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Öncelik</label>
+                                    <select id="priority" class="form-control">
+                                        <option value="1" selected>Yüksek</option>
+                                        <option value="2"> Orta</option>
+                                        <option value="3">Düşük</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Durum</label>
+                                    <select id="status" class="form-control">
+                                        <option value="1" selected>Açık</option>
+                                        <option value="2">Kapalı</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="id">
+
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Görev Tarihi</label>
+                                    <input type="date" name="gorevTarihi" class="form-control" id="gorevTarihi"
+                                        min="1937-01-01" max="2330-12-31">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Termin Tarii</label>
+                                    <input type="date" name="terminTarihi" class="form-control" id="terminTarihi"
+                                        min="1937-01-01" max="2330-12-31">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Kişi</label>
+                                    <select id="person" class="form-control">
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="ui-bordered px-3 pt-3" hidden>
+                            <label class="form-label">Yüklenen Dosyalar</label>
+                            <div class="listFiles">
+
+                            </div>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Dosya Yükle</label>
+                                    <input id="fileAddTask" type="file" name="fileAddTask" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="switcher switcher-success">
+                                        <input id="chkTakvim" type="checkbox" class="switcher-input" checked>
+                                        <span class="switcher-indicator">
+                                            <span class="switcher-yes">
+                                                <span class="ion ion-md-checkmark"></span>
+                                            </span>
+                                            <span class="switcher-no">
+                                                <span class="ion ion-md-close"></span>
+                                            </span>
+                                        </span>
+                                        <span class="switcher-label">Takvimde Gösterilsin Mi?</span>
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+                <!-- / Ticket settings -->
+
+                <!-- Footer -->
+                <div class="card-footer">
+                    <button type="button" id="btnAddTask" onclick="addTask()" title="Kayıt" class="btn btn-success">Yeni
+                        Ekle</button>
+                    <button type="button" id="btnAddPerson" onclick="updateTask()" title="Düzenle"
+                        class="btn btn-warning">Güncelle</button>
+                </div>
+                <!-- Footer -->
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+
+    <!-- tamammmmmm -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="detailmodalwindow">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="padding-bottom: 25px;">
+
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>
+                <!-- //burayaa -->
+                <div class="card">
+                    <!-- Ticket -->
+                    <div class="card-body">
+                        <!-- Header -->
+                        <div class="row no-gutters">
+                            <div class="col-sm-6 col-md-8 col-lg-7 col-xl-8">
+                                <!-- Author -->
+                                <div class="media align-items-center mb-4">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <div class="media-body ml-3">
+                                        <h5 class="mb-1"><a href="javascript:void(0)" class="text-dark"></a></h5>
+                                        <div id="detailtaskOwner" class="text-muted small">123</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-5 col-xl-4">
+                                <!-- Dates -->
+                                <div class="row no-gutters row-bordered row-border-light ui-bordered mb-4">
+                                    <div class="col py-1 px-3">
+                                        <div class="text-muted small">Oluşturulma T.</div>
+                                        <div class="font-weight-semibold" id="detailcreatedDate"></div>
+                                    </div>
+                                    <div class="col py-1 px-3">
+                                        <div class="text-muted small">Görev T.</div>
+                                        <div class="font-weight-semibold" id="detailtaskDate"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- / Header -->
+                        <div class="form-group">
+                            <label class="form-label">Konu</label>
+                            <input type="text" class="form-control" id="detailtopic" value="" readonly>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Açıklama</label>
+                            <textarea class="form-control" rows="3" id="detaildescription" readonly> </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Atanmış Kişi</label>
+                            <input type="text" class="form-control" id="detailAssaigned" value="" readonly>
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Öncelik</label>
+                                    <select id="detailpriority" class="form-control" disabled>
+                                        <option value="1" selected>Yüksek</option>
+                                        <option value="2"> Orta</option>
+                                        <option value="3">Düşük</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Durum Değiştir</label>
+                                    <select id="detailstatus" class="form-control" onchange="changeTaskStatus()">
+                                        <option value="1" selected>Açık</option>
+                                        <option value="2">Kapalı</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive table-bordered table-sm">
+                            <table id="file-table" class="table mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Url</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tfoot style="display: table-header-group;">
+                                    <tr>
+                                        <th>Url</th>
+                                        <th style="display:none"></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody id="file-list">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="container" id="comments">
+
+
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Yorum Yaz</label>
+                                    <input type="text" class="form-control" id="enterComment" value=""
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Dosya Ekle</label>
+                                    <input id="myFile" type="file" name="myFile" class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- / Ticket settings -->
+
+
+                    <!-- Footer -->
+                    <div class="card-footer">
+                        <button type="button" id="btnAddTask" onclick="addTaskComment()" title="Yorum Ekle"
+                            class="btn btn-success">Yorum Ekle</i></button>
+
+                    </div>
+                    <!-- Footer -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- tamammmmmmm -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="modalwindow">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>
+                <!-- //burayaa -->
+                <form name="postform" id="postform" class="form-horizontal" action="javascript:void(0)"></form>
+                <div class="card">
+                    <!-- Ticket -->
+                    <div class="card-body">
+                        <!-- Header -->
+
+                        <div class="row no-gutters">
+                            <div class="col-sm-6 col-md-8 col-lg-7 col-xl-8">
+                                <!-- Author -->
+                                <div class="media align-items-center mb-4">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <div class="media-body ml-3">
+                                        <h5 class="mb-1"><a href="javascript:void(0)" class="text-dark"></a></h5>
+                                        <div id="taskOwner" class="text-muted small"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-5 col-xl-4">
+                                <!-- Dates -->
+                                <div class="row no-gutters row-bordered row-border-light ui-bordered mb-4">
+                                    <div class="col py-1 px-3">
+                                        <div class="text-muted small">Oluşturulma T.</div>
+                                        <div class="font-weight-semibold" id="createdDate"></div>
+                                    </div>
+                                    <div class="col py-1 px-3">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- / Header -->
+                        <div class="form-group">
+                            <label class="form-label">Konu</label>
+                            <input type="text" class="form-control" id="topic" value="">
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Açıklama</label>
+                            <textarea class="form-control" rows="3" id="description"></textarea>
+                        </div>
+                    </div>
+                    <!-- / Ticket -->
+                    <hr class="border-light m-0">
+                    <!-- Ticket settings -->
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Öncelik</label>
+                                    <select id="priority" class="form-control">
+                                        <option value="1" selected>Yüksek</option>
+                                        <option value="2"> Orta</option>
+                                        <option value="3">Düşük</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Durum</label>
+                                    <select id="status" class="form-control">
+                                        <option value="1" selected>Açık</option>
+                                        <option value="2">Kapalı</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="id">
+
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Görev Tarihi</label>
+                                    <input type="date" name="gorevTarihi" class="form-control" id="gorevTarihi"
+                                        min="1937-01-01" max="2330-12-31">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Termin Tarii</label>
+                                    <input type="date" name="terminTarihi" class="form-control" id="terminTarihi"
+                                        min="1937-01-01" max="2330-12-31">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui-bordered px-3 pt-3 mb-3">
+                            <label class="form-label mb-2">Kişi Ata</label>
+                            <div>
+                                <div class="form-group">
+                                    <label class="form-label">Kişi</label>
+                                    <select id="person" class="form-control">
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="ui-bordered px-3 pt-3" hidden>
+                            <label class="form-label">Yüklenen Dosyalar</label>
+                            <div class="container">
+
+                            </div>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                        <div class="ui-bordered px-3 pt-3">
+                            <label class="form-label">Dosya Yükle</label>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / Ticket settings -->
+
+                    <!-- Footer -->
+                    <div class="card-footer">
+                        <button type="button" id="btnAddTask" onclick="addTask()" title="Kayıt"
+                            class="btn btn-success"><i class="fas fa-plus"></i></button>
+                        <button type="button" id="btnAddPerson" onclick="updateTask()" title="Düzenle"
+                            class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                    </div>
+                    <!-- Footer -->
+                </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- tamammmmm -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="logmodalwindow">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="padding-bottom: 25px;">
+
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>
+                <!-- //burayaa -->
+
+                <div class="layout-content">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive table-bordered table-sm">
+                                <table id="gorevlog-table" class="table mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>İşlem</th>
+                                            <th>Kullanıcı Adı</th>
+                                            <th>Başlık</th>
+                                            <th>Zaman</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot style="display: table-header-group;">
+                                        <tr>
+                                            <th>İşlem</th>
+                                            <th>Kullanıcı Adı</th>
+                                            <th>Başlık</th>
+                                            <th>Zaman</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody id="gorevlog-list">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Upload Modal-->
+    </div>
+</body>
+
+
+</html>

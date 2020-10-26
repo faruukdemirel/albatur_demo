@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="en" class="default-style layout-fixed layout-navbar-fixed">
+
+<head>
+
+    <!-- panelheader.html -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+  
+    <script src="../assets/jsController/customerCrm.js"></script>
+    <style>
+        .select-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 34px !important;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #ccc !important;
+            border-radius: 0px !important;
+        }
+              .my-custom-scrollbar {
+                position: relative;
+                height: 200px;
+                overflow: auto;
+        }
+        .table-wrapper-scroll-y {
+        display: block;
+        }
+        #customerSearchLike{
+            position: absolute;
+            margin-top: 50px !important;
+            margin-left:22px !important ;
+            width: 60px !important;
+            height: 42px !important;
+           
+        }
+       
+        .chosen-single{
+            height: 30px !important;
+            width: 200px;
+        }
+        .chosen-single span{
+            margin-top: -8px;
+        }
+        .chosen-container{
+            margin-right: -100px;
+            margin-top: -5px;
+        }
+       
+
+
+
+        /* TO DO: modal-content divinin içinde modal-headerı kapsamadan (modal headerin tam altına) birde modal-body olması gerekli sağlıklı padding verebilmek için. Tüm modallarda modal content içerisine modal-body classı ekleyebilirsin paddingi ona vermek gerekli ben burada bir örnek yapıyorum üstteki modal olan sayfalardaki modal-contant padding:25i de kaldırmak lazım */
+    </style>
+</head>
+
+<body>
+    <!-- [ Preloader ] Start -->
+    <div class="page-loader">
+        <div class="bg-primary"></div>
+    </div>
+    <!-- [ Preloader ] End -->
+
+    <!-- [ Layout wrapper ] Start -->
+    <div class="layout-wrapper layout-2">
+        <div class="layout-inner">
+            <!-- panelnavbar.html -->
+            <!-- [ Layout container ] Start -->
+            <div class="layout-container">
+
+                <!-- panelustmenu.html -->
+                <!-- [ Layout content ] Start -->
+                <div class="layout-content">
+                    <!-- [ content ] Start -->
+                    <div class="container-fluid flex-grow-1 container-p-y">
+                        <h4 class="font-weight-bold py-3 mb-0">Müşteri Crm</h4>
+                        <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#!">Ana Sayfa</a></li>
+                                <li class="breadcrumb-item active"><a href="#!">Müşteri Crm</a></li>
+                            </ol>
+                        </div>
+                        <div class="row">
+                            <!-- customar project  start -->
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row align-items-center m-l-0">
+                                            <div class="row w-100">
+                                                <div class="col-sm-4" style="display: none;">
+                                                    <div class="select-block form-group">
+                                                        <label style="margin-right: 10px;;"> Müşteri Tİpi</label>
+                                                        <select onchange="customerTypeChanged(this)"
+                                                            id="selectCustomerType"
+                                                            class="js-category-multiple col-sm-4 form-control">
+                                                            <option value="0">Hepsi</option>
+                                                            <option value="1">Müşteri</option>
+                                                            <option value="2">Tedarikçi</option>
+                                                            <option value="3">Müşteri-Tedarikçi</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="select-block form-group">
+                                                        <label style="margin-right: 10px;;"> Filtrele</label>
+                                                        <select onchange="customerTypeChanged(this)"
+                                                            id="selectDate"
+                                                            class="js-category-multiple col-sm-4 form-control">
+                                                            <option value="5">Bugün</option>
+                                                            <option value="1">1 Hafta</option>
+                                                            <option value="2">2 Hafta</option>
+                                                            <option value="3">1 Ay</option>
+                                                            <option value="4">Hepsi</option>                                                           
+
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5" id="selectFirmaName">
+                                                   
+                                                        <div class="form-group">
+                                                            <label style="display: block;">Firma Ara</label>
+                                                            <input type="text" id="selectFirma" style="height: 33px; " >  
+                                                            <button class="btn btn-outline-danger btn-color-delete standard-button"  id="emptySearch" style="margin-top: 4px; display: none;" ><i class="fas fa-times"></i></button> 
+                                                            <button class="btn btn-outline-success ladda-button ml-2" data-style="expand-left" onclick="searchFilterFirma()" title="Arama Yap"  id="searchFirma" >Ara</button>                                                                                                                
+                                                       </div>                       
+                                                                                                        
+                                                                                                    
+                                                </div>                                              
+                                                <div class="col-sm-12 text-right custom-dt-top">
+                                                    <button class='btn btn-outline-success ladda-button'
+                                                        data-toggle='modal' data-style="expand-left" title="Yeni Kayıt"
+                                                        data-target='#chatModal' id='yeniKayitBtn'
+                                                        onclick='newSave()' style="margin-top: -40px;">Yeni Ekle</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive table-bordered table-sm">
+                                            <table id="report-table" class="table mb-0">
+                                                <thead class="thead-light">
+                                                    <tr>
+
+                                                        <th>#</th>
+                                                        <th>Yazan</th>
+                                                        <th>Firma Adı</th>
+                                                        <th>Yetkili Adı</th>
+                                                        <th>Görüşme Tipi</th>
+                                                        <th>Mesaj</th>
+                                                        <th>İşlemler</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot style="display: table-header-group;">
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Yazan</th>
+                                                        <th>Firma Adı</th>
+                                                        <th>Yetkili Adı</th>
+                                                        <th>Görüşme Tipi</th>
+                                                        <th>Mesaj</th>
+                                                        <th style="display:none"></th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody id="customer_list">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- customar project  end -->
+                        </div>
+                    </div>
+                    <!-- [ content ] End -->
+                    <!-- panelfooter.html -->
+                </div>
+                <!-- [ Layout content ] Start -->
+            </div>
+            <!-- [ Layout container ] End -->
+        </div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+    </div>
+    <!-- [ Layout wrapper] End -->
+
+
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="chatModal">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button style="margin-top: 10px" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <form name="postform" id="postform" class="form-horizontal" action="javascript:void(0)">
+                            <div class="form-row row">
+                                <div class="row-title">
+                                    <h4>
+                                        Müşteri Crm
+                                    </h4>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group" style="margin-left: 15px;">
+                                        <label class="form-label" style="margin-right: 10px;">Firma Adı</label>
+                                        <input  type="text" id="firmaName" placeholder="Firma adı.." value=""  class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="form-label" style="margin-right: 10px;">Yetkili Adı</label>
+                                        <input class="form-control" type="text" id="yetkiliName" placeholder="Yetkili adı.." value=""  >                                   
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" id="customerMailDiv">
+                                    <div class="form-group">
+                                        <label class="form-label" style="margin-right: 10px;">E-mail</label>
+                                        <input type="text" id="musteriMail" value="" placeholder="Email.."  class="form-control" >                                      
+                                      
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">                                                                        
+                                        <button class="btn btn-outline-success ladda-button ml-2" data-style="expand-left" data-target="#meetingdetailsmodalwindow" data-toggle="modal" title="Ara" id="customerSearchLike">ARA</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" id="customerKodDiv">
+                                    <div class="form-group"style="margin-left: 15px;">
+                                        <label class="form-label" >Müşteri Kod </label>
+                                        <input type="text" id="musteriKod" placeholder="Müşteri kodu.." value=""  class="form-control" >
+                                    </div>                                    
+                                        
+                                 </div>                                   
+                                    <div class="col-sm-3" id="customerUlke">
+                                        <div class="form-group">
+                                            <label class="form-label" style="margin-right: 10px;">Ülke </label>
+                                            <input type="text"  id="musteriUlke" placeholder="Ülke.." value=""  class="form-control" >
+                                        </div>                                    
+                                            
+                                     </div>        
+                                    <div class="col-sm-3" id="customerSehir">
+                                        <div class="form-group">
+                                            <label class="form-label" style="margin-left: 10px;">Şehir </label>
+                                            <input type="text"  id="musteriSehir" placeholder="Şehir.." value=""  class="form-control" >
+                                        </div>                                    
+                                            
+                                     </div>
+                                    
+                                       
+                                
+                            
+                                <input hidden id="customerId">
+                                <div class="table-responsive table-bordered table-sm" id="searchCustomerTable" >
+                                    <table id="report-table" class="table mb-0">
+                                        <thead class="thead-light">    
+                                    
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">Seç</th>
+                                          <th scope="col">Firma Adı</th>
+                                          <th scope="col">Yetkili Adı</th>
+                                          <th scope="col">Gsm</th>
+                                          <th scope="col">E-mail</th>                                                                                
+                                          <th scope="col">Şehir</th>
+                                          <th scope="col">Ülke</th>                                        
+                                          <th scope="col">Adres</th>                                
+                                          <th scope="col">Müşteri Kod</th>
+                                        </tr>
+                                      </thead>                                   
+                                      <tbody id="searchCriterCustomer">
+                                       
+                                      </tbody>
+                                    </table>
+                                  
+                                  </div>
+                                <div class="col-sm-12">
+                                    <!-- <div class="form-group">
+                                        <label style="margin-right: 10px;"> Görüşme Tipi</label>
+                                        <select id="selectMeetingType" class="form-control">
+                                            <option disabled value="1">Mesaj</option>
+                                            <option disabled value="2">Email</option>
+                                            <option value="3">Telefon</option>
+                                            <option value="4">Görüşme</option>
+                                        </select>
+                                    </div>
+ -->
+
+                                    <div id="meetingType" class="mb-4">
+                                        <label style="display: block;margin-bottom: 12px;"> Görüşme Tipi</label>
+                                        <div class="custom-control custom-radio" style="display: inline;padding-right: 35px;padding-left: 27px;">
+                                            <input type="radio" class="custom-control-input" id="customRadio1" name="meetingTypeCheck" value="3" checked="checked">
+                                            <label class="custom-control-label" for="customRadio1">Telefon</label>
+                                        </div>
+                                        <div class="custom-control custom-radio" style="display: inline;padding-right: 35px;padding-left: 27px;">
+                                            <input type="radio" class="custom-control-input" id="customRadio2" name="meetingTypeCheck" value="4">
+                                            <label class="custom-control-label" for="customRadio2">Görüşme</label>
+                                        </div>
+                                       
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Görüşme Tarihi </label>
+                                        <input type="date" name="gorusmeTarihi" class="form-control" id="gorusmeTarihi"
+                                            min="1937-01-01" max="2330-12-31">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-12" id="isAdmin">
+                                    <div class="form-group">
+
+                                        <label class="switcher switcher-success">
+                                            <input id="chkOzel" type="checkbox" class="switcher-input" checked>
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-yes">
+                                                    <span class="ion ion-md-checkmark"></span>
+                                                </span>
+                                                <span class="switcher-no">
+                                                    <span class="ion ion-md-close"></span>
+                                                </span>
+                                            </span>
+                                            <span class="switcher-label">Sadece Yöneticiye Görülsün</span>
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="flex-grow-0">
+                                            <div class="input-group">
+                                                <!--
+                                                <input type="text" class="form-control" placeholder="Mesajınızı Yazınız"
+                                                    id="sendMessageContent">-->
+                                                ​<textarea class="form-control" placeholder="Mesajınızı Yazınız"
+                                                    id="sendMessageContent" rows="5" cols="50"></textarea>
+                                                <div class="input-group-append">
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button class='btn btn-success' style="display: none;" id='btnUpdateCustomerMail'
+                                    onclick='customerMsgEdit()'>Güncelle</button>
+                                <button class='btn btn-success' style="display: none;" id='btnAddCustomerMail'
+                                   >Kaydet</button>
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <input type="hidden" id="customerCrmId">
+                    <!-- TO DO: Bazı modallarda input selectbox veya elementler araları çok açık ise ps  pd  mt gibi bazı paddin margin veren gereksiz classlar var onları kaldırabilirsin daha düzgün görünecektir  -->
+                </div>
+                <!-- / .chat-messages -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Modal-->
+
+
+    </div>
+
+
+</body>
+
+</html>
